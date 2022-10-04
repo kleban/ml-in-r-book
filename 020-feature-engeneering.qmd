@@ -1,15 +1,23 @@
+---
+format:
+  html:
+    toc: true
+---
+
 # ТЕМА 2. КОНСТРУЮВАННЯ ОЗНАК {.unnumbered}
 
 Курс: "Математичне моделювання в R"
 
----
+------------------------------------------------------------------------
 
 У даній темі розкрито основні принципи інженерії фіч та методів трансформації даних для підвищення якості, швидкості побудови математичних моделей.
 
----
+------------------------------------------------------------------------
 
-<iframe src="https://onedrive.live.com/embed?cid=0A1340BA71B3F0AA&amp;resid=A1340BA71B3F0AA%214540&amp;authkey=AN8QL0Jbs6aMVeY&amp;em=2&amp;wdAr=1.7777777777777777" width="100%" height="400px" frameborder="0">Це вбудований документ <a target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+<iframe src="https://onedrive.live.com/embed?cid=0A1340BA71B3F0AA&amp;resid=A1340BA71B3F0AA%214540&amp;authkey=AN8QL0Jbs6aMVeY&amp;em=2&amp;wdAr=1.7777777777777777" width="100%" height="400px" frameborder="0">
 
----
+Це вбудований документ <a target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a target="_blank" href="https://office.com/webapps">Office</a>.
 
+</iframe>
 
+------------------------------------------------------------------------
