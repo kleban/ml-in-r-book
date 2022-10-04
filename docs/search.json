@@ -9,7 +9,7 @@
   {
     "objectID": "010-intro.html",
     "href": "010-intro.html",
-    "title": "ТЕМА 1. ВСТУП ДО КУРСУ1",
+    "title": "ТЕМА 1. ВСТУП ДО КУРСУ",
     "section": "",
     "text": "Мета заняття:\nРозглянути основні поняття, що стосуються математичного моделювання та базові категорії машинного навчання.\n\n\nЦе вбудований документ <a target=\"_blank\" href=\"https://office.com\">Microsoft Office</a> на платформі <a target=\"_blank\" href=\"https://office.com/webapps\">Office</a>."
   },
@@ -19,5 +19,54 @@
     "title": "ТЕМА 2. КОНСТРУЮВАННЯ ОЗНАК",
     "section": "",
     "text": "У даній темі розкрито основні принципи інженерії фіч та методів трансформації даних для підвищення якості, швидкості побудови математичних моделей.\n\n\nЦе вбудований документ <a target=\"_blank\" href=\"https://office.com\">Microsoft Office</a> на платформі <a target=\"_blank\" href=\"https://office.com/webapps\">Office</a>."
+  },
+  {
+    "objectID": "023-feature-engeneering-woe-binning.html",
+    "href": "023-feature-engeneering-woe-binning.html",
+    "title": "1  Woe Binning",
+    "section": "",
+    "text": "Курс: “Матетичне моделювання в R”"
+  },
+  {
+    "objectID": "023-feature-engeneering-woe-binning.html#набір-даних",
+    "href": "023-feature-engeneering-woe-binning.html#набір-даних",
+    "title": "1  Woe Binning",
+    "section": "1.1 Набір даних",
+    "text": "1.1 Набір даних\nДжерело: https://github.com/gastonstat/CreditScoring/blob/master/CleanCreditScoring.csv\nЗавантажимо дані:\n\nlibrary(openxlsx)\ndata <- openxlsx::read.xlsx(\"data/CreditScoring.xlsx\", sheet = 1, startRow = 1, colNames = TRUE, rowNames = FALSE)\nstr(data)\n\nОпишемо дані:\n\nStatus - credit status (Target)\nSeniority job seniority (years)\nHome type of home ownership\nTime time of requested loan\nAge client’s age\nMarital marital status\nRecords existance of records\nJob type of job\nExpenses amount of expenses\nIncome amount of income\nAssets amount of assets\nDebt amount of debt\nAmount amount requested of loan\nPrice price of good"
+  },
+  {
+    "objectID": "023-feature-engeneering-woe-binning.html#простий-бінінг-змінних",
+    "href": "023-feature-engeneering-woe-binning.html#простий-бінінг-змінних",
+    "title": "1  Woe Binning",
+    "section": "1.2 Простий бінінг змінних",
+    "text": "1.2 Простий бінінг змінних\n\n1.2.1 Категоріальна змінна\nСтворимо дата-фрейм для зберігання інформації про групи змінної Home (як приклад біннігу категоріального показника):\n\nhome_groups <- data.frame(Group = unique(data$Home), \n                          Good = c(0), Bad = c(0), \n                          GoodP = c(0), BadP = c(0),\n                          WOE = c(0), IV = c(0))\nhome_groups\n\nПереглянемо можливі варіанти показника Status, який є залежною бінарною змінною поточної задачі:\n\nlibrary(gmodels)\nCrossTable(data$Status)\n\nСформуємо групи та обчислимо значення по кожній групі:\n\nfor(i in 1:nrow(home_groups)) {\n  \n  group <- home_groups$Group[i]\n  \n  home_groups$Good[i] <- nrow(data[data$Home == group & data$Status == \"good\", ])\n  home_groups$Bad[i] <- nrow(data[data$Home == group & data$Status == \"bad\", ])\n  \n  home_groups$GoodP[i] <- home_groups$Good[i]/nrow(data[data$Status == \"good\", ])\n  home_groups$BadP[i] <- home_groups$Bad[i]/nrow(data[data$Status == \"bad\", ])\n  \n  home_groups$WOE[i] <- log( home_groups$GoodP[i] / home_groups$BadP[i])\n  home_groups$IV[i] <- (home_groups$GoodP[i] - home_groups$BadP[i])*home_groups$WOE[i]\n}\n\nhome_groups\n\nПереглянемо сумарний IV:\n\nhome_iv <- sum(home_groups$IV)\nhome_iv\n\nВізуалізуємо групи:\n\nbarplot(home_groups$WOE, \n        col=\"brown\", \n        names.arg=c(as.character(home_groups$Group)), \n        xlab=\"Group\",\n        ylab=\"WOE\"\n)\n\nСтворимо датафрейм для нових WOE-даних:\n\nnew_df <- data.frame(Status = data$Status, Home = data$Home, HomeWoe = c(0))\n\nЗамінимо значення на WOE:\n\nfor(i in 1:nrow(home_groups)) {\n  group <- home_groups$Group[i]\n  woe <- home_groups$WOE[i]  \n  new_df[new_df$Home == group, ]$HomeWoe <- woe\n}\n\ntail(new_df)\n\n\n\n\n1.2.2 Числова змінна\nОбрахуємо приклад числовиго показника (на прикладі Age):\n\nmin_age <- min(data$Age)\nmax_age <- max(data$Age)\n\nstep <- round(max_age - min_age)/10\n\n\nage_groups <- data.frame(Min = seq(min_age, max_age-step, step), \n                         Max = seq(min_age + step, max_age, step), \n                          Good = c(0), Bad = c(0), \n                          GoodP = c(0), BadP = c(0),\n                          WOE = c(0), IV = c(0))\n\nage_groups\n\nСформуємо групи:\n\nfor(i in 1:nrow(age_groups)) {\n  \n  min <- age_groups$Min[i]\n  max<- age_groups$Max[i]\n  \n  age_groups$Good[i] <- nrow(data[data$Age >= min & data$Age < max & data$Status == \"good\", ])\n  age_groups$Bad[i] <- nrow(data[data$Age >= min & data$Age < max & data$Status == \"bad\", ])\n  \n  if(i == nrow(age_groups)) {\n    age_groups$Good[i] <- age_groups$Good[i] + nrow(data[data$Age == max & data$Status == \"good\", ])\n    age_groups$Bad[i] <- age_groups$Bad[i] + nrow(data[data$Age == max & data$Status == \"bad\", ])\n  }\n  \n  age_groups$GoodP[i] <- age_groups$Good[i]/nrow(data[data$Status == \"good\", ])\n  age_groups$BadP[i] <- age_groups$Bad[i]/nrow(data[data$Status == \"bad\", ])\n  \n  age_groups$WOE[i] <- log( age_groups$GoodP[i] / age_groups$BadP[i])\n  \n  age_groups$IV[i] <- (age_groups$GoodP[i] - age_groups$BadP[i]) * age_groups$WOE[i]\n}\n\nage_groups\n\nСумарний IV:\n\nage_iv <- sum(age_groups$IV)\nage_iv\n\nВізуалізуємо значення груп WOE:\n\nbarplot(age_groups$WOE, \n        col=\"brown\", \n        names.arg=c(age_groups$Min), \n        xlab=\"Min Age\",\n        ylab=\"WOE\"\n)\n\nЗамінимо значення на WOE:\n\nnew_df$Age <- data$Age\nnew_df$AgeWoe <- c(0)\n\nfor(i in 1:nrow(age_groups)) {\n  \n  min <- age_groups$Min[i]\n  max <- age_groups$Max[i]\n  woe <- age_groups$WOE[i]\n  \n  new_df[new_df$Age >= min & new_df$Age < max, ]$AgeWoe <- woe\n  \n  if(i == nrow(age_groups)) {\n    new_df$AgeWoe[i] <- woe\n  }\n  \n}\n\nhead(new_df)\n\nВидалимо оригінальні значення з набору даних:\n\nnew_df$Home <- NULL\nnew_df$Age <- NULL\nhead(new_df)"
+  },
+  {
+    "objectID": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-woebin",
+    "href": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-woebin",
+    "title": "1  Woe Binning",
+    "section": "1.3 Бінінг з використанням woeBin",
+    "text": "1.3 Бінінг з використанням woeBin"
+  },
+  {
+    "objectID": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-rbin",
+    "href": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-rbin",
+    "title": "1  Woe Binning",
+    "section": "1.4 Бінінг з використанням rBin",
+    "text": "1.4 Бінінг з використанням rBin"
+  },
+  {
+    "objectID": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-smbinning",
+    "href": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-smbinning",
+    "title": "1  Woe Binning",
+    "section": "1.5 Бінінг з використанням smbinning",
+    "text": "1.5 Бінінг з використанням smbinning"
+  },
+  {
+    "objectID": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-scorecard",
+    "href": "023-feature-engeneering-woe-binning.html#бінінг-з-використанням-scorecard",
+    "title": "1  Woe Binning",
+    "section": "1.6 Бінінг з використанням scorecard",
+    "text": "1.6 Бінінг з використанням scorecard"
   }
 ]
