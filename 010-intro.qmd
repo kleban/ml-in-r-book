@@ -1,0 +1,23 @@
+---
+format:
+  html:
+    toc: true
+---
+
+# ТЕМА 1. ВСТУП ДО КУРСУ
+
+Курс: "Математичне моделювання в R"
+
+---
+
+Мета заняття:
+
+Розглянути основні поняття, що стосуються **математичного моделювання** та базові категорії **машинного навчання**.
+
+---
+
+<iframe src="https://onedrive.live.com/embed?cid=0A1340BA71B3F0AA&amp;resid=A1340BA71B3F0AA%214482&amp;authkey=AOdpfz_sssPyVHw&amp;em=2&amp;wdAr=1.7777777777777777" width="100%" height="400px" frameborder="0">Це вбудований документ <a target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+
+---
+
+

@@ -1,0 +1,25 @@
+---
+format:
+  html:
+    toc: true
+---
+
+# ТЕМА 3. НАВЧАННЯ "З УЧИТЕЛЕМ"
+
+Курс: "Математичне моделювання в R"
+
+---
+
+У даній темі розкрито основні принципи побудови та використання регресійних моделей, а також моделей для розв'язання задачк ласифікації.
+
+Під час вивчення матеріалів розглядаються алгоритми на основі лінійної та логістичної регресії, нейронних мереж, дерев рішень та градієнтного бустінгу.
+
+Для практичного закріплення знань використовують можливості бібліотек R: `caret`, `neuralnet`, `gmodels`, `rpart` та інші.
+
+---
+
+<iframe src="https://onedrive.live.com/embed?cid=0A1340BA71B3F0AA&amp;resid=A1340BA71B3F0AA%214539&amp;authkey=AI_KhHqmSyn5fcE&amp;em=2&amp;wdAr=1.7777777777777777&amp;wdEaaCheck=1" width="100%" height="400px" frameborder="0">Це вбудований документ <a target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+
+---
+
+
