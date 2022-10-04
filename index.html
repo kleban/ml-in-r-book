@@ -1,68 +1,90 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.2.232">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="author" content="Юрій Клебан">
-  <meta name="dcterms.date" content="2022-10-02">
-  <title>Математичне моделювання в R</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-  <script src="site_libs/quarto-nav/headroom.min.js"></script>
-  <script src="site_libs/clipboard/clipboard.min.js"></script>
-  <meta name="quarto:offset" content="./">
-  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-  <script src="site_libs/quarto-search/fuse.min.js"></script>
-  <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <link href="./010-intro.html" rel="next">
-  <script src="site_libs/quarto-html/quarto.js"></script>
-  <script src="site_libs/quarto-html/popper.min.js"></script>
-  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="site_libs/quarto-html/anchor.min.js"></script>
-  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
-  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <script id="quarto-search-options" type="application/json">{
-    "location": "sidebar",
-    "copy-button": false,
-    "collapse-after": 2,
-    "panel-placement": "start",
-    "type": "textbox",
-    "limit": 20
-  }</script>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Юрій Клебан">
+<meta name="dcterms.date" content="2022-10-02">
+
+<title>Математичне моделювання в R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./010-intro.html" rel="next">
+<link href="./img/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+
+<body class="nav-sidebar floating">
+
 <div id="quarto-search-results"></div>
-<header id="quarto-header" class="headroom fixed-top">
-<nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <div class="container-fluid d-flex justify-content-between">
-    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">Математичне моделювання в R</h1>
-    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-</nav>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Математичне моделювання в R</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
 </header>
- <!-- /navbar/sidebar -->
-<div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
-<div class="row flex-fill">
-  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
-    <nav class="ms-lg-auto floating overflow-auto">
-  <div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Математичне моделювання в R</a> 
         <div class="sidebar-tools-main">
@@ -90,46 +112,75 @@
     </ul>
 </div>
     </div>
-  </div>
-    <div class="px-3 mt-2 flex-shrink-0 align-items-center">
-      <div class="sidebar-search">
-      <div id="quarto-search" class="mb-0 " title="Search">
-</div>
       </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">Про курс</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-intro.html" class="sidebar-item-text sidebar-link">ТЕМА 1. ВСТУП ДО КУРСУ1</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">ТЕМА 2. КОНСТРУЮВАННЯ ОЗНАК</span>
+  </li>
+    </ul>
     </div>
-  <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-1 px-3">
-      <li class="sidebar-item">
-  <a href="./index.html" class="active">Про курс</a>
-</li>
-      <li class="sidebar-item">
-  <a href="./010-intro.html" class="">ТЕМА 1. ВСТУП ДО КУРСУ1</a>
-</li>
-      <li class="sidebar-item">
-  <a href="./020-feature-engeneering.html" class="">ТЕМА 2. КОНСТРУЮВАННЯ ОЗНАК</a>
-</li>
-  </ul>
-  </div>
 </nav>
-  </div>
-  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
-<h2 id="toc-title">On this page</h2>
-<ul>
-<li><a href="#про-курс" class="nav-link active" data-scroll-target="#про-курс">Про курс</a>
-<ul class="collapse">
-<li><a href="#опис-навчальної-дисципліни" class="nav-link" data-scroll-target="#опис-навчальної-дисципліни">Опис навчальної дисципліни</a></li>
-<li><a href="#мета-дисципліни" class="nav-link" data-scroll-target="#мета-дисципліни">Мета дисципліни</a></li>
-<li><a href="#дотримання-принципів-доброчесності" class="nav-link" data-scroll-target="#дотримання-принципів-доброчесності">Дотримання принципів доброчесності</a></li>
-</ul></li>
-</ul>
-</nav></div>
-  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
-<main>
-<header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7">Математичне моделювання в R</h1>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Зміст</h2>
+   
+  <ul>
+  <li><a href="#про-курс" id="toc-про-курс" class="nav-link active" data-scroll-target="#про-курс">Про курс</a>
+  <ul class="collapse">
+  <li><a href="#опис-навчальної-дисципліни" id="toc-опис-навчальної-дисципліни" class="nav-link" data-scroll-target="#опис-навчальної-дисципліни">Опис навчальної дисципліни</a></li>
+  <li><a href="#мета-дисципліни" id="toc-мета-дисципліни" class="nav-link" data-scroll-target="#мета-дисципліни">Мета дисципліни</a></li>
+  <li><a href="#дотримання-принципів-доброчесності" id="toc-дотримання-принципів-доброчесності" class="nav-link" data-scroll-target="#дотримання-принципів-доброчесності">Дотримання принципів доброчесності</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Математичне моделювання в R</h1>
 <p class="subtitle lead">Матеріали підготовано для студентів 3-го курсу спеціальності економічна кібернетика</p>
-<p class="author">Юрій Клебан</p>
-<p class="date">10/02/2022</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Автор</div>
+    <div class="quarto-title-meta-contents">
+             <p>Юрій Клебан </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Опубліковано</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 2, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
 </header>
 
 
@@ -149,14 +200,10 @@
 <h2 class="anchored" data-anchor-id="дотримання-принципів-доброчесності">Дотримання принципів доброчесності</h2>
 <p>Викладач та слухач цього курсу, як очікується, повинні дотримуватися Кодексу академічної доброчесності університету:</p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" checked="">
-будь-яка робота, подана здобувачем протягом курсу, має бути його власною роботою здобувача; не вдаватися до кроків, що можуть нечесно покращити Ваші результати чи погіршити/покращити результати інших здобувачів;</p></li>
-<li><p><input type="checkbox" disabled="" checked="">
-якщо буде виявлено ознаки плагіату або іншої недобросовісної академічної поведінки, то студент буде позбавлений можливості отримати передбачені бали за завдання;</p></li>
-<li><p><input type="checkbox" disabled="" checked="">
-не публікувати у відкритому доступі відповіді на запитання, що використовуються в рамках курсу для оцінювання знань здобувачів;</p></li>
-<li><p><input type="checkbox" disabled="" checked="">
-під час фінальних видів контролю необхідно працювати самостійно; не дозволяється говорити або обговорювати, а також не можна копіювати документи, використовувати електронні засоби отримання інформації.</p></li>
+<li><p><input type="checkbox" disabled="" checked="">будь-яка робота, подана здобувачем протягом курсу, має бути його власною роботою здобувача; не вдаватися до кроків, що можуть нечесно покращити Ваші результати чи погіршити/покращити результати інших здобувачів;</p></li>
+<li><p><input type="checkbox" disabled="" checked="">якщо буде виявлено ознаки плагіату або іншої недобросовісної академічної поведінки, то студент буде позбавлений можливості отримати передбачені бали за завдання;</p></li>
+<li><p><input type="checkbox" disabled="" checked="">не публікувати у відкритому доступі відповіді на запитання, що використовуються в рамках курсу для оцінювання знань здобувачів;</p></li>
+<li><p><input type="checkbox" disabled="" checked="">під час фінальних видів контролю необхідно працювати самостійно; не дозволяється говорити або обговорювати, а також не можна копіювати документи, використовувати електронні засоби отримання інформації.</p></li>
 </ul>
 <p>Порушення академічної доброчесності під час виконання контрольних завдань призведе до втрати балів або вживання заходів, які передбачені Кодексу академічної доброчесності НаУОА.</p>
 <hr>
@@ -168,14 +215,10 @@
 <div class="callout-body-container">
 <p>Матеріали курсу створені з використанням ряду технологій:</p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" checked="">
-<a href="https://www.r-project.org"><code>R</code> Language</a> - безкоштована мова програмування для виконання досліджень у сфері статистики, машинного навчання та візуалізацї результатів.</p></li>
-<li><p><input type="checkbox" disabled="" checked="">
-<a href="https://quarto.org"><code>Quarto</code> Book</a> - система для публікації наукових та технічних текстів з відкритим кодом (<code>R</code>/<code>Python</code>/<code>Julia</code>/<code>Observable</code>).</p></li>
-<li><p><input type="checkbox" disabled="" checked="">
-<a href="https://github.com/jupyterlab/jupyterlab"><code>JupyterLab</code></a> - середовище розробки на основі <a href="https://jupyter.org/"><code>Jupyter Notebook</code></a>. <code>JupyterLab</code> є розширеним веб-інтерфейсом для роботи з ноутбуками.</p></li>
-<li><p><input type="checkbox" disabled="" checked="">
-<code>Git</code>/<code>Github</code> - система контролю версій та, відповідно, сервіс для організації зберігання коду, а також публікації статичних сторінок.</p></li>
+<li><p><input type="checkbox" disabled="" checked=""><a href="https://www.r-project.org"><code>R</code> Language</a> - безкоштована мова програмування для виконання досліджень у сфері статистики, машинного навчання та візуалізацї результатів.</p></li>
+<li><p><input type="checkbox" disabled="" checked=""><a href="https://quarto.org"><code>Quarto</code> Book</a> - система для публікації наукових та технічних текстів з відкритим кодом (<code>R</code>/<code>Python</code>/<code>Julia</code>/<code>Observable</code>).</p></li>
+<li><p><input type="checkbox" disabled="" checked=""><a href="https://github.com/jupyterlab/jupyterlab"><code>JupyterLab</code></a> - середовище розробки на основі <a href="https://jupyter.org/"><code>Jupyter Notebook</code></a>. <code>JupyterLab</code> є розширеним веб-інтерфейсом для роботи з ноутбуками.</p></li>
+<li><p><input type="checkbox" disabled="" checked=""><code>Git</code>/<code>Github</code> - система контролю версій та, відповідно, сервіс для організації зберігання коду, а також публікації статичних сторінок.</p></li>
 </ul>
 </div>
 </div>
@@ -184,8 +227,28 @@
 
 </section>
 </section>
-<script type="application/javascript">
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -205,30 +268,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
     setTimeout(function() {
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
     e.clearSelection();
   });
   function tippyHover(el, contentFn) {
-    window.tippy(el, {
+    const config = {
       allowHTML: true,
       content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
       placement: 'bottom-start'
-    }); 
+    };
+    window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
@@ -256,19 +327,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</main>
-<div class="page-navigation ">
+<nav class="page-navigation">
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./010-intro.html">
+      <a href="./010-intro.html" class="pagination-link">
         <span class="nav-page-text">ТЕМА 1. ВСТУП ДО КУРСУ1</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</div>
-</div> <!-- /main column -->
-</div> <!-- /row -->
-</div> <!-- /container fluid -->
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">Copyright 2022, Юрій Клебан</div>
+  </div>
+</footer>
+
 
 
 </body></html>
