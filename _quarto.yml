@@ -13,7 +13,6 @@ book:
   repo-branch: main
   sharing: [twitter, facebook, linkedin]
   favicon: img/favicon.png
-  twitter-card: true
   chapters:
     - index.qmd
     - 010-intro.qmd
