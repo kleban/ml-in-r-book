@@ -13,6 +13,10 @@ book:
   repo-branch: main
   sharing: [twitter, facebook, linkedin]
   favicon: img/favicon.png
+  theme:
+    light: flatly
+    dark: darkly
+  #google-analytics: "UA-XXXXXXXX"
   chapters:
     - index.qmd
     - 010-intro.qmd
