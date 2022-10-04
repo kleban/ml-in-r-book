@@ -38,7 +38,7 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
-          install.packages("IRkernel")
+          source("packages.r")
           IRkernel::installspec()
 
    #   - name: "Install Quarto and render"
