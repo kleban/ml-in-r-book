@@ -38,6 +38,8 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
+          install.packages("IRkernel")
+          IRkernel::installspec()
 
    #   - name: "Install Quarto and render"
    #     uses: pommevilla/quarto-render@main
