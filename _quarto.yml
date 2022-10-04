@@ -3,8 +3,8 @@ project:
   output-dir: docs
 
 book:
-  title: "ml-in-r-book"
-  author: "Jane Doe"
+  title: "Математичне моделювання в R"
+  author: "Юрій Клебан"
   date: "10/4/2022"
   chapters:
     - index.qmd
