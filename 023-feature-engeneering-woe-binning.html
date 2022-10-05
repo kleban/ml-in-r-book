@@ -93,6 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./030-supervised-learning.html" rel="next">
 <link href="./020-feature-engeneering.html" rel="prev">
 <link href="./img/favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -123,6 +124,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="css/style.css">
@@ -206,6 +210,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./030-supervised-learning.html" class="sidebar-item-text sidebar-link">ТЕМА 3. НАВЧАННЯ "З УЧИТЕЛЕМ"</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./031-supervised-learning-linear-regression-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Лінійна регресія. Престиж професій</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./032-supervised-learning-linear-regression-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Лінійна регресія. Прокат велосипедів</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./033-supervised-learning-desicion-trees-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Дерева рішень. Регресія. Баланс кредитної карти</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -215,16 +244,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Зміст</h2>
    
   <ul>
-  <li><a href="#набір-даних" id="toc-набір-даних" class="nav-link active" data-scroll-target="#набір-даних"><span class="toc-section-number">1.1</span>  Набір даних</a></li>
-  <li><a href="#простий-бінінг-змінних" id="toc-простий-бінінг-змінних" class="nav-link" data-scroll-target="#простий-бінінг-змінних"><span class="toc-section-number">1.2</span>  Простий бінінг змінних</a>
+  <li><a href="#woe-binning" id="toc-woe-binning" class="nav-link active" data-scroll-target="#woe-binning"><span class="toc-section-number">2</span>  Woe Binning</a>
   <ul class="collapse">
-  <li><a href="#категоріальна-змінна" id="toc-категоріальна-змінна" class="nav-link" data-scroll-target="#категоріальна-змінна"><span class="toc-section-number">1.2.1</span>  Категоріальна змінна</a></li>
-  <li><a href="#числова-змінна" id="toc-числова-змінна" class="nav-link" data-scroll-target="#числова-змінна"><span class="toc-section-number">1.2.2</span>  Числова змінна</a></li>
+  <li><a href="#набір-даних" id="toc-набір-даних" class="nav-link" data-scroll-target="#набір-даних"><span class="toc-section-number">2.1</span>  Набір даних</a></li>
+  <li><a href="#простий-бінінг-змінних" id="toc-простий-бінінг-змінних" class="nav-link" data-scroll-target="#простий-бінінг-змінних"><span class="toc-section-number">2.2</span>  Простий бінінг змінних</a>
+  <ul class="collapse">
+  <li><a href="#категоріальна-змінна" id="toc-категоріальна-змінна" class="nav-link" data-scroll-target="#категоріальна-змінна"><span class="toc-section-number">2.2.1</span>  Категоріальна змінна</a></li>
+  <li><a href="#числова-змінна" id="toc-числова-змінна" class="nav-link" data-scroll-target="#числова-змінна"><span class="toc-section-number">2.2.2</span>  Числова змінна</a></li>
   </ul></li>
-  <li><a href="#бінінг-з-використанням-woebin" id="toc-бінінг-з-використанням-woebin" class="nav-link" data-scroll-target="#бінінг-з-використанням-woebin"><span class="toc-section-number">1.3</span>  Бінінг з використанням <code>woeBin</code></a></li>
-  <li><a href="#бінінг-з-використанням-rbin" id="toc-бінінг-з-використанням-rbin" class="nav-link" data-scroll-target="#бінінг-з-використанням-rbin"><span class="toc-section-number">1.4</span>  Бінінг з використанням <code>rBin</code></a></li>
-  <li><a href="#бінінг-з-використанням-smbinning" id="toc-бінінг-з-використанням-smbinning" class="nav-link" data-scroll-target="#бінінг-з-використанням-smbinning"><span class="toc-section-number">1.5</span>  Бінінг з використанням <code>smbinning</code></a></li>
-  <li><a href="#бінінг-з-використанням-scorecard" id="toc-бінінг-з-використанням-scorecard" class="nav-link" data-scroll-target="#бінінг-з-використанням-scorecard"><span class="toc-section-number">1.6</span>  Бінінг з використанням <code>scorecard</code></a></li>
+  <li><a href="#бінінг-з-використанням-woebin" id="toc-бінінг-з-використанням-woebin" class="nav-link" data-scroll-target="#бінінг-з-використанням-woebin"><span class="toc-section-number">2.3</span>  Бінінг з використанням <code>woeBin</code></a></li>
+  <li><a href="#бінінг-з-використанням-rbin" id="toc-бінінг-з-використанням-rbin" class="nav-link" data-scroll-target="#бінінг-з-використанням-rbin"><span class="toc-section-number">2.4</span>  Бінінг з використанням <code>rBin</code></a></li>
+  <li><a href="#бінінг-з-використанням-smbinning" id="toc-бінінг-з-використанням-smbinning" class="nav-link" data-scroll-target="#бінінг-з-використанням-smbinning"><span class="toc-section-number">2.5</span>  Бінінг з використанням <code>smbinning</code></a></li>
+  <li><a href="#бінінг-з-використанням-scorecard" id="toc-бінінг-з-використанням-scorecard" class="nav-link" data-scroll-target="#бінінг-з-використанням-scorecard"><span class="toc-section-number">2.6</span>  Бінінг з використанням <code>scorecard</code></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -247,19 +279,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="woe-binning" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Woe Binning</h1>
 <p>Курс: “Матетичне моделювання в R”</p>
 <hr>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="набір-даних" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="набір-даних"><span class="header-section-number">1.1</span> Набір даних</h2>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setlocale</span>(<span class="st">"LC_CTYPE"</span>, <span class="st">"ukrainian"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+'Ukrainian_Ukraine.1251'
+</div>
+</div>
+<section id="набір-даних" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="набір-даних"><span class="header-section-number">2.1</span> Набір даних</h2>
 <p>Джерело: <a href="https://github.com/gastonstat/CreditScoring/blob/master/CleanCreditScoring.csv" class="uri">https://github.com/gastonstat/CreditScoring/blob/master/CleanCreditScoring.csv</a></p>
 <p>Завантажимо дані:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">"data/CreditScoring.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">startRow =</span> <span class="dv">1</span>, <span class="at">colNames =</span> <span class="cn">TRUE</span>, <span class="at">rowNames =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">"data/CreditScoring.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">startRow =</span> <span class="dv">1</span>, <span class="at">colNames =</span> <span class="cn">TRUE</span>, <span class="at">rowNames =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   4446 obs. of  16 variables:
+ $ Status   : chr  "good" "good" "bad" "good" ...
+ $ Seniority: num  9 17 10 0 0 1 29 9 0 0 ...
+ $ Home     : chr  "rent" "rent" "owner" "rent" ...
+ $ Time     : num  60 60 36 60 36 60 60 12 60 48 ...
+ $ Age      : num  30 58 46 24 26 36 44 27 32 41 ...
+ $ Marital  : chr  "married" "widow" "married" "single" ...
+ $ Records  : chr  "no_rec" "no_rec" "yes_rec" "no_rec" ...
+ $ Job      : chr  "freelance" "fixed" "freelance" "fixed" ...
+ $ Expenses : num  73 48 90 63 46 75 75 35 90 90 ...
+ $ Income   : num  129 131 200 182 107 214 125 80 107 80 ...
+ $ Assets   : num  0 0 3000 2500 0 3500 10000 0 15000 0 ...
+ $ Debt     : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Amount   : num  800 1000 2000 900 310 650 1600 200 1200 1200 ...
+ $ Price    : num  846 1658 2985 1325 910 ...
+ $ Finrat   : num  94.6 60.3 67 67.9 34.1 ...
+ $ Savings  : num  4.2 4.98 1.98 7.93 7.08 ...</code></pre>
+</div>
 </div>
 <p>Опишемо дані:</p>
 <ul class="task-list">
@@ -280,175 +340,345 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <hr>
 </section>
-<section id="простий-бінінг-змінних" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="простий-бінінг-змінних"><span class="header-section-number">1.2</span> Простий бінінг змінних</h2>
-<section id="категоріальна-змінна" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="категоріальна-змінна"><span class="header-section-number">1.2.1</span> Категоріальна змінна</h3>
+<section id="простий-бінінг-змінних" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="простий-бінінг-змінних"><span class="header-section-number">2.2</span> Простий бінінг змінних</h2>
+<section id="категоріальна-змінна" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="категоріальна-змінна"><span class="header-section-number">2.2.1</span> Категоріальна змінна</h3>
 <p>Створимо дата-фрейм для зберігання інформації про групи змінної <code>Home</code> (як приклад біннігу категоріального показника):</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>home_groups <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group =</span> <span class="fu">unique</span>(data<span class="sc">$</span>Home), </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Good =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">Bad =</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">GoodP =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">BadP =</span> <span class="fu">c</span>(<span class="dv">0</span>),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">WOE =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">IV =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>home_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>home_groups <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group =</span> <span class="fu">unique</span>(data<span class="sc">$</span>Home), </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Good =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">Bad =</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">GoodP =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">BadP =</span> <span class="fu">c</span>(<span class="dv">0</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">WOE =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">IV =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>home_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 7</caption>
+<thead>
+    <tr><th scope="col">Group</th><th scope="col">Good</th><th scope="col">Bad</th><th scope="col">GoodP</th><th scope="col">BadP</th><th scope="col">WOE</th><th scope="col">IV</th></tr>
+    <tr><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><td>rent   </td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>owner  </td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>parents</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>priv   </td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>other  </td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>ignore </td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 <p>Переглянемо можливі варіанти показника <code>Status</code>, який є залежною бінарною змінною поточної задачі:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CrossTable</span>(data<span class="sc">$</span>Status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CrossTable</span>(data<span class="sc">$</span>Status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 
+   Cell Contents
+|-------------------------|
+|                       N |
+|         N / Table Total |
+|-------------------------|
+
+ 
+Total Observations in Table:  4446 
+
+ 
+          |       bad |      good | 
+          |-----------|-----------|
+          |      1249 |      3197 | 
+          |     0.281 |     0.719 | 
+          |-----------|-----------|
+
+
+
+ </code></pre>
+</div>
 </div>
 <p>Сформуємо групи та обчислимо значення по кожній групі:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(home_groups)) {</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Group[i]</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>Good[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Home <span class="sc">==</span> group <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>Bad[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Home <span class="sc">==</span> group <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>GoodP[i] <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Good[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>BadP[i] <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Bad[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>WOE[i] <span class="ot">&lt;-</span> <span class="fu">log</span>( home_groups<span class="sc">$</span>GoodP[i] <span class="sc">/</span> home_groups<span class="sc">$</span>BadP[i])</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>IV[i] <span class="ot">&lt;-</span> (home_groups<span class="sc">$</span>GoodP[i] <span class="sc">-</span> home_groups<span class="sc">$</span>BadP[i])<span class="sc">*</span>home_groups<span class="sc">$</span>WOE[i]</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>home_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(home_groups)) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Group[i]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>Good[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Home <span class="sc">==</span> group <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>Bad[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Home <span class="sc">==</span> group <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>GoodP[i] <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Good[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>BadP[i] <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Bad[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>WOE[i] <span class="ot">&lt;-</span> <span class="fu">log</span>( home_groups<span class="sc">$</span>GoodP[i] <span class="sc">/</span> home_groups<span class="sc">$</span>BadP[i])</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  home_groups<span class="sc">$</span>IV[i] <span class="ot">&lt;-</span> (home_groups<span class="sc">$</span>GoodP[i] <span class="sc">-</span> home_groups<span class="sc">$</span>BadP[i])<span class="sc">*</span>home_groups<span class="sc">$</span>WOE[i]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>home_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 7</caption>
+<thead>
+    <tr><th scope="col">Group</th><th scope="col">Good</th><th scope="col">Bad</th><th scope="col">GoodP</th><th scope="col">BadP</th><th scope="col">WOE</th><th scope="col">IV</th></tr>
+    <tr><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><td>rent   </td><td> 585</td><td>388</td><td>0.182984048</td><td>0.310648519</td><td>-0.52926313</td><td>0.067568098</td></tr>
+    <tr><td>owner  </td><td>1716</td><td>390</td><td>0.536753206</td><td>0.312249800</td><td> 0.54173490</td><td>0.121621331</td></tr>
+    <tr><td>parents</td><td> 550</td><td>232</td><td>0.172036284</td><td>0.185748599</td><td>-0.07668873</td><td>0.001051580</td></tr>
+    <tr><td>priv   </td><td> 162</td><td> 84</td><td>0.050672505</td><td>0.067253803</td><td>-0.28309010</td><td>0.004694001</td></tr>
+    <tr><td>other  </td><td> 173</td><td>146</td><td>0.054113231</td><td>0.116893515</td><td>-0.77018467</td><td>0.048352412</td></tr>
+    <tr><td>ignore </td><td>  11</td><td>  9</td><td>0.003440726</td><td>0.007205765</td><td>-0.73919894</td><td>0.002783113</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 <p>Переглянемо сумарний <code>IV</code>:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>home_iv <span class="ot">&lt;-</span> <span class="fu">sum</span>(home_groups<span class="sc">$</span>IV)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>home_iv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>home_iv <span class="ot">&lt;-</span> <span class="fu">sum</span>(home_groups<span class="sc">$</span>IV)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>home_iv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.246070534510342
+</div>
 </div>
 <p>Візуалізуємо групи:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(home_groups<span class="sc">$</span>WOE, </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">"brown"</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">c</span>(<span class="fu">as.character</span>(home_groups<span class="sc">$</span>Group)), </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">"Group"</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"WOE"</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(home_groups<span class="sc">$</span>WOE, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">"brown"</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">c</span>(<span class="fu">as.character</span>(home_groups<span class="sc">$</span>Group)), </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">"Group"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"WOE"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="023-feature-engeneering-woe-binning_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <p>Створимо датафрейм для нових <code>WOE</code>-даних:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>new_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Status =</span> data<span class="sc">$</span>Status, <span class="at">Home =</span> data<span class="sc">$</span>Home, <span class="at">HomeWoe =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>new_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Status =</span> data<span class="sc">$</span>Status, <span class="at">Home =</span> data<span class="sc">$</span>Home, <span class="at">HomeWoe =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Замінимо значення на <code>WOE</code>:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(home_groups)) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Group[i]</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  woe <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>WOE[i]  </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  new_df[new_df<span class="sc">$</span>Home <span class="sc">==</span> group, ]<span class="sc">$</span>HomeWoe <span class="ot">&lt;-</span> woe</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(new_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(home_groups)) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>Group[i]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  woe <span class="ot">&lt;-</span> home_groups<span class="sc">$</span>WOE[i]  </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  new_df[new_df<span class="sc">$</span>Home <span class="sc">==</span> group, ]<span class="sc">$</span>HomeWoe <span class="ot">&lt;-</span> woe</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(new_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+    <tr><th></th><th scope="col">Status</th><th scope="col">Home</th><th scope="col">HomeWoe</th></tr>
+    <tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">4441</th><td>bad </td><td>other</td><td>-0.7701847</td></tr>
+    <tr><th scope="row">4442</th><td>bad </td><td>rent </td><td>-0.5292631</td></tr>
+    <tr><th scope="row">4443</th><td>good</td><td>owner</td><td> 0.5417349</td></tr>
+    <tr><th scope="row">4444</th><td>bad </td><td>owner</td><td> 0.5417349</td></tr>
+    <tr><th scope="row">4445</th><td>good</td><td>rent </td><td>-0.5292631</td></tr>
+    <tr><th scope="row">4446</th><td>good</td><td>owner</td><td> 0.5417349</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 <hr>
 </section>
-<section id="числова-змінна" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="числова-змінна"><span class="header-section-number">1.2.2</span> Числова змінна</h3>
+<section id="числова-змінна" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="числова-змінна"><span class="header-section-number">2.2.2</span> Числова змінна</h3>
 <p>Обрахуємо приклад числовиго показника (на прикладі <code>Age</code>):</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>min_age <span class="ot">&lt;-</span> <span class="fu">min</span>(data<span class="sc">$</span>Age)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>max_age <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span>Age)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>step <span class="ot">&lt;-</span> <span class="fu">round</span>(max_age <span class="sc">-</span> min_age)<span class="sc">/</span><span class="dv">10</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>age_groups <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Min =</span> <span class="fu">seq</span>(min_age, max_age<span class="sc">-</span>step, step), </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">Max =</span> <span class="fu">seq</span>(min_age <span class="sc">+</span> step, max_age, step), </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Good =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">Bad =</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">GoodP =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">BadP =</span> <span class="fu">c</span>(<span class="dv">0</span>),</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">WOE =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">IV =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>age_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>min_age <span class="ot">&lt;-</span> <span class="fu">min</span>(data<span class="sc">$</span>Age)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>max_age <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span>Age)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>step <span class="ot">&lt;-</span> <span class="fu">round</span>(max_age <span class="sc">-</span> min_age)<span class="sc">/</span><span class="dv">10</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>age_groups <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Min =</span> <span class="fu">seq</span>(min_age, max_age<span class="sc">-</span>step, step), </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">Max =</span> <span class="fu">seq</span>(min_age <span class="sc">+</span> step, max_age, step), </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Good =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">Bad =</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">GoodP =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">BadP =</span> <span class="fu">c</span>(<span class="dv">0</span>),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">WOE =</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="at">IV =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>age_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 10 × 8</caption>
+<thead>
+    <tr><th scope="col">Min</th><th scope="col">Max</th><th scope="col">Good</th><th scope="col">Bad</th><th scope="col">GoodP</th><th scope="col">BadP</th><th scope="col">WOE</th><th scope="col">IV</th></tr>
+    <tr><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><td>18</td><td>23</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>23</td><td>28</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>28</td><td>33</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>33</td><td>38</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>38</td><td>43</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>43</td><td>48</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>48</td><td>53</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>53</td><td>58</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>58</td><td>63</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>63</td><td>68</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 <p>Сформуємо групи:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(age_groups)) {</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  min <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Min[i]</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  max<span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Max[i]</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>Good[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">&gt;=</span> min <span class="sc">&amp;</span> data<span class="sc">$</span>Age <span class="sc">&lt;</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>Bad[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">&gt;=</span> min <span class="sc">&amp;</span> data<span class="sc">$</span>Age <span class="sc">&lt;</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">==</span> <span class="fu">nrow</span>(age_groups)) {</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    age_groups<span class="sc">$</span>Good[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Good[i] <span class="sc">+</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">==</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    age_groups<span class="sc">$</span>Bad[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Bad[i] <span class="sc">+</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">==</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>GoodP[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Good[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>BadP[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Bad[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>WOE[i] <span class="ot">&lt;-</span> <span class="fu">log</span>( age_groups<span class="sc">$</span>GoodP[i] <span class="sc">/</span> age_groups<span class="sc">$</span>BadP[i])</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>IV[i] <span class="ot">&lt;-</span> (age_groups<span class="sc">$</span>GoodP[i] <span class="sc">-</span> age_groups<span class="sc">$</span>BadP[i]) <span class="sc">*</span> age_groups<span class="sc">$</span>WOE[i]</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>age_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(age_groups)) {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  min <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Min[i]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  max<span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Max[i]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>Good[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">&gt;=</span> min <span class="sc">&amp;</span> data<span class="sc">$</span>Age <span class="sc">&lt;</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>Bad[i] <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">&gt;=</span> min <span class="sc">&amp;</span> data<span class="sc">$</span>Age <span class="sc">&lt;</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">==</span> <span class="fu">nrow</span>(age_groups)) {</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    age_groups<span class="sc">$</span>Good[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Good[i] <span class="sc">+</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">==</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    age_groups<span class="sc">$</span>Bad[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Bad[i] <span class="sc">+</span> <span class="fu">nrow</span>(data[data<span class="sc">$</span>Age <span class="sc">==</span> max <span class="sc">&amp;</span> data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>GoodP[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Good[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"good"</span>, ])</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>BadP[i] <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Bad[i]<span class="sc">/</span><span class="fu">nrow</span>(data[data<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"bad"</span>, ])</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>WOE[i] <span class="ot">&lt;-</span> <span class="fu">log</span>( age_groups<span class="sc">$</span>GoodP[i] <span class="sc">/</span> age_groups<span class="sc">$</span>BadP[i])</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  age_groups<span class="sc">$</span>IV[i] <span class="ot">&lt;-</span> (age_groups<span class="sc">$</span>GoodP[i] <span class="sc">-</span> age_groups<span class="sc">$</span>BadP[i]) <span class="sc">*</span> age_groups<span class="sc">$</span>WOE[i]</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>age_groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 10 × 8</caption>
+<thead>
+    <tr><th scope="col">Min</th><th scope="col">Max</th><th scope="col">Good</th><th scope="col">Bad</th><th scope="col">GoodP</th><th scope="col">BadP</th><th scope="col">WOE</th><th scope="col">IV</th></tr>
+    <tr><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><td>18</td><td>23</td><td>169</td><td>110</td><td>0.05286206</td><td>0.088070456</td><td>-0.51045129</td><td>0.0179721723</td></tr>
+    <tr><td>23</td><td>28</td><td>505</td><td>231</td><td>0.15796059</td><td>0.184947958</td><td>-0.15772892</td><td>0.0042566888</td></tr>
+    <tr><td>28</td><td>33</td><td>564</td><td>213</td><td>0.17641539</td><td>0.170536429</td><td> 0.03389245</td><td>0.0001992523</td></tr>
+    <tr><td>33</td><td>38</td><td>491</td><td>212</td><td>0.15358148</td><td>0.169735789</td><td>-0.10001179</td><td>0.0016156210</td></tr>
+    <tr><td>38</td><td>43</td><td>443</td><td>183</td><td>0.13856741</td><td>0.146517214</td><td>-0.05578602</td><td>0.0004434881</td></tr>
+    <tr><td>43</td><td>48</td><td>320</td><td>123</td><td>0.10009384</td><td>0.098478783</td><td> 0.01626700</td><td>0.0000262721</td></tr>
+    <tr><td>48</td><td>53</td><td>317</td><td> 79</td><td>0.09915546</td><td>0.063250600</td><td> 0.44958428</td><td>0.0161422597</td></tr>
+    <tr><td>53</td><td>58</td><td>214</td><td> 58</td><td>0.06693775</td><td>0.046437150</td><td> 0.36566337</td><td>0.0074963200</td></tr>
+    <tr><td>58</td><td>63</td><td>124</td><td> 31</td><td>0.03878636</td><td>0.024819856</td><td> 0.44642472</td><td>0.0062349937</td></tr>
+    <tr><td>63</td><td>68</td><td> 50</td><td>  9</td><td>0.01563966</td><td>0.007205765</td><td> 0.77492879</td><td>0.0065356700</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 <p>Сумарний IV:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>age_iv <span class="ot">&lt;-</span> <span class="fu">sum</span>(age_groups<span class="sc">$</span>IV)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>age_iv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>age_iv <span class="ot">&lt;-</span> <span class="fu">sum</span>(age_groups<span class="sc">$</span>IV)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>age_iv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.0609227380464588
+</div>
 </div>
 <p>Візуалізуємо значення груп <code>WOE</code>:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(age_groups<span class="sc">$</span>WOE, </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">"brown"</span>, </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">c</span>(age_groups<span class="sc">$</span>Min), </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">"Min Age"</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"WOE"</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(age_groups<span class="sc">$</span>WOE, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">"brown"</span>, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">c</span>(age_groups<span class="sc">$</span>Min), </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">"Min Age"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"WOE"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="023-feature-engeneering-woe-binning_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <p>Замінимо значення на <code>WOE</code>:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>Age <span class="ot">&lt;-</span> data<span class="sc">$</span>Age</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>AgeWoe <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(age_groups)) {</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  min <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Min[i]</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  max <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Max[i]</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  woe <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>WOE[i]</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  new_df[new_df<span class="sc">$</span>Age <span class="sc">&gt;=</span> min <span class="sc">&amp;</span> new_df<span class="sc">$</span>Age <span class="sc">&lt;</span> max, ]<span class="sc">$</span>AgeWoe <span class="ot">&lt;-</span> woe</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">==</span> <span class="fu">nrow</span>(age_groups)) {</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    new_df<span class="sc">$</span>AgeWoe[i] <span class="ot">&lt;-</span> woe</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(new_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>Age <span class="ot">&lt;-</span> data<span class="sc">$</span>Age</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>AgeWoe <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(age_groups)) {</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  min <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Min[i]</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  max <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>Max[i]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  woe <span class="ot">&lt;-</span> age_groups<span class="sc">$</span>WOE[i]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  new_df[new_df<span class="sc">$</span>Age <span class="sc">&gt;=</span> min <span class="sc">&amp;</span> new_df<span class="sc">$</span>Age <span class="sc">&lt;</span> max, ]<span class="sc">$</span>AgeWoe <span class="ot">&lt;-</span> woe</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">==</span> <span class="fu">nrow</span>(age_groups)) {</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    new_df<span class="sc">$</span>AgeWoe[i] <span class="ot">&lt;-</span> woe</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(new_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 5</caption>
+<thead>
+    <tr><th></th><th scope="col">Status</th><th scope="col">Home</th><th scope="col">HomeWoe</th><th scope="col">Age</th><th scope="col">AgeWoe</th></tr>
+    <tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>good</td><td>rent </td><td>-0.5292631</td><td>30</td><td> 0.03389245</td></tr>
+    <tr><th scope="row">2</th><td>good</td><td>rent </td><td>-0.5292631</td><td>58</td><td> 0.44642472</td></tr>
+    <tr><th scope="row">3</th><td>bad </td><td>owner</td><td> 0.5417349</td><td>46</td><td> 0.01626700</td></tr>
+    <tr><th scope="row">4</th><td>good</td><td>rent </td><td>-0.5292631</td><td>24</td><td>-0.15772892</td></tr>
+    <tr><th scope="row">5</th><td>good</td><td>rent </td><td>-0.5292631</td><td>26</td><td>-0.15772892</td></tr>
+    <tr><th scope="row">6</th><td>good</td><td>owner</td><td> 0.5417349</td><td>36</td><td>-0.10001179</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 <p>Видалимо оригінальні значення з набору даних:</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>Home <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>Age <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(new_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>Home <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>new_df<span class="sc">$</span>Age <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(new_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+    <tr><th></th><th scope="col">Status</th><th scope="col">HomeWoe</th><th scope="col">AgeWoe</th></tr>
+    <tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>good</td><td>-0.5292631</td><td> 0.03389245</td></tr>
+    <tr><th scope="row">2</th><td>good</td><td>-0.5292631</td><td> 0.44642472</td></tr>
+    <tr><th scope="row">3</th><td>bad </td><td> 0.5417349</td><td> 0.01626700</td></tr>
+    <tr><th scope="row">4</th><td>good</td><td>-0.5292631</td><td>-0.15772892</td></tr>
+    <tr><th scope="row">5</th><td>good</td><td>-0.5292631</td><td>-0.15772892</td></tr>
+    <tr><th scope="row">6</th><td>good</td><td> 0.5417349</td><td>-0.10001179</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 <hr>
 </section>
 </section>
-<section id="бінінг-з-використанням-woebin" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="бінінг-з-використанням-woebin"><span class="header-section-number">1.3</span> Бінінг з використанням <code>woeBin</code></h2>
+<section id="бінінг-з-використанням-woebin" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="бінінг-з-використанням-woebin"><span class="header-section-number">2.3</span> Бінінг з використанням <code>woeBin</code></h2>
 <hr>
 </section>
-<section id="бінінг-з-використанням-rbin" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="бінінг-з-використанням-rbin"><span class="header-section-number">1.4</span> Бінінг з використанням <code>rBin</code></h2>
+<section id="бінінг-з-використанням-rbin" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="бінінг-з-використанням-rbin"><span class="header-section-number">2.4</span> Бінінг з використанням <code>rBin</code></h2>
 <hr>
 </section>
-<section id="бінінг-з-використанням-smbinning" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="бінінг-з-використанням-smbinning"><span class="header-section-number">1.5</span> Бінінг з використанням <code>smbinning</code></h2>
+<section id="бінінг-з-використанням-smbinning" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="бінінг-з-використанням-smbinning"><span class="header-section-number">2.5</span> Бінінг з використанням <code>smbinning</code></h2>
 <hr>
 </section>
-<section id="бінінг-з-використанням-scorecard" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="бінінг-з-використанням-scorecard"><span class="header-section-number">1.6</span> Бінінг з використанням <code>scorecard</code></h2>
+<section id="бінінг-з-використанням-scorecard" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="бінінг-з-використанням-scorecard"><span class="header-section-number">2.6</span> Бінінг з використанням <code>scorecard</code></h2>
 <hr>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -557,6 +787,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./030-supervised-learning.html" class="pagination-link">
+        <span class="nav-page-text">ТЕМА 3. НАВЧАННЯ “З УЧИТЕЛЕМ”</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
