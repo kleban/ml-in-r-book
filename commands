@@ -1,3 +1,4 @@
-:: renv ::
-renv::snapshot()
+cd e:\repos\oa_2023\ml-in-r-book
+quarto render . 
+quarto publish gh-pages
 
