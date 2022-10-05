@@ -29,8 +29,8 @@ book:
         - 035-supervised-learning-logistic-regression.ipynb
         - 036-supervised-learning-desicion-trees-classification.ipynb
         - 037-supervised-learning-neural-network-classification.ipynb
-    - part: 041-unsupervised-learning.qmd
-      chapters:        
+    - part: 040-unsupervised-learning.qmd
+      chapters:
         - 041-unsupervised-learning-clustering-kmeans.ipynb
     #- references.qmd
  # appendices:
