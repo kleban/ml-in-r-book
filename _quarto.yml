@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "Математичне моделювання в R"
+  title: "Математичне моделювання в R1"
   subtitle: "Матеріали підготовано для студентів 3-го курсу спеціальності економічна кібернетика"
   author: "Юрій Клебан"
   date: "10/02/2022"
@@ -18,8 +18,8 @@ book:
     - index.qmd
     - 010-intro.qmd
     - part: 020-feature-engeneering.qmd
-      chapters:
-        - 023-feature-engeneering-woe-binning.ipynb
+      #chapters:
+       # - 023-feature-engeneering-woe-binning.ipynb
     #- part: 030-supervised-learning.qmd
      # chapters:        
      #   - 031-supervised-learning-linear-regression-1.ipynb
