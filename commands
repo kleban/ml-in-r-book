@@ -1,4 +1,8 @@
+# work with book
 cd e:\repos\oa_2023\ml-in-r-book
+# render book to ../ml-in-r-pub
 quarto render . 
-quarto publish gh-pages
+# commit ml-in-r-r-book # source
+# commit ml-in-r-pub # published
+
 
