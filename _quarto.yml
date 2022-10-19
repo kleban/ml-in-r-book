@@ -31,7 +31,9 @@ book:
         - 037-supervised-learning-neural-network-classification.ipynb
     - part: 040-unsupervised-learning.qmd
       chapters:
-        - 041-unsupervised-learning-clustering-kmeans.ipynb
+        - 041-unsupervised-learning-clustering-kmeans-1.ipynb
+        - 042-unsupervised-learning-clustering-kmeans-2.ipynb
+        - 043-unsupervised-learning-clustering-kmeans-and-random-forest.ipynb
     #- references.qmd
  # appendices:
  #   - summary.qmd

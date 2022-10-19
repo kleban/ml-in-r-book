@@ -16,7 +16,7 @@ format:
 
 ---
 
-<iframe src="https://onedrive.live.com/embed?cid=0A1340BA71B3F0AA&amp;resid=A1340BA71B3F0AA%214539&amp;authkey=AI_KhHqmSyn5fcE&amp;em=2&amp;wdAr=1.7777777777777777&amp;wdEaaCheck=1" width="100%" height="400px" frameborder="0">Це вбудований документ <a target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+<iframe src="https://onedrive.live.com/embed?cid=0A1340BA71B3F0AA&amp;resid=A1340BA71B3F0AA%214560&amp;authkey=AH9paCIJOAR-7_U&amp;em=2&amp;wdAr=1.7777777777777777" width="100%" height="400px" frameborder="0">Це вбудований документ <a target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
 
 ---
 
